@@ -51,15 +51,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import { uid } from "uid";
-import { RouterLink } from "vue-router";
+import { ref } from "vue";
 import BaseModal from "./BaseModal.vue";
-import { useRoute } from "vue-router";
 
 const savedCities = ref([]);
 const route = useRoute();
-const router = useRoute();
+const router = useRouter();
 const addCity = () => {
   if (localStorage.getItem("savedCities")) {
     savedCities.value = JSON.parse(localStorage.getItem("savedCities"));
@@ -80,6 +79,7 @@ const addCity = () => {
 
   let query = Object.assign({}, route.query);
   delete query.preview;
+  query.id = locationObj.id;
   router.replace({ query });
 };
 
