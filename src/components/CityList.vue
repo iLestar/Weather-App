@@ -28,18 +28,25 @@ const getCities = async () => {
     });
     const weatherData = await Promise.all(request);
 
+    await new Promise((res) => setTimeout(res, 500));
+
     weatherData.forEach((value, index) => {
       savedCities.value[index].weather = value.data;
     });
   }
 };
 await getCities();
+
 const router = useRouter();
 const goToCityView = (city) => {
   router.push({
-    name: "city",
+    name: "cityView",
     params: { state: city.state, city: city.city },
-    query: { lat: city.coords.lat, lng: city.coords.lng },
+    query: {
+      id: city.id,
+      lat: city.coords.lat,
+      lng: city.coords.lng,
+    },
   });
 };
 </script>
